@@ -4,4 +4,3 @@
  *
  */
 
-#define haha 1+1
