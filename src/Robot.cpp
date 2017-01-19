@@ -10,9 +10,13 @@
 #include <SmartDashboard/SmartDashboard.h>
 #include <Spark.h>								// Motor controller Header (Spark)
 #include <Joystick.h>							// Joystick Header (general)
+#include <RobotDrive.h>
 
 // Custom Headers
 #include <Robot.h>
+
+const int leftMotorChannel = 1;
+const int rightMotorChannel = 0;
 
 class Robot: public frc::IterativeRobot
 {
@@ -23,9 +27,8 @@ private:
 	const std::string autoNameCustom = "My Auto";
 	std::string autoSelected;
 
-	// EXP Motor experiment #1
-	frc::Spark *motor1 = new frc::Spark(1);
 	frc::Joystick *joy = new frc::Joystick(0);
+	frc::RobotDrive *drive = new frc::RobotDrive(leftMotorChannel, rightMotorChannel);
 
 public:
 	void RobotInit()
@@ -76,15 +79,16 @@ public:
 
 	void TeleopInit()
 	{
-		motor1->Set(0);
+
 	}
 
 	void TeleopPeriodic()
 	{
-		// EXP motor experiment #1
-		double Power = joy->GetRawAxis(1);	// Read angle from the motor
-		printf("Angle: %f\n", Power);		// DBMSG Print present angle
-		motor1->Set(-Power);
+		while (IsOperatorControl())
+		{
+			// Driving control , powered by wpi RobotDrive::ArcadeDrive algorithms
+			drive->ArcadeDrive(joy);
+		}
 	}
 
 	void TestPeriodic()
