@@ -15,8 +15,13 @@
 // Custom Headers
 #include <Robot.h>
 
-const int leftMotorChannel = 1;
+//TODO confirm joystickAnxisChannel is correct
+enum joystickAnxisChannel {X, Y, Z, Slider};
+
 const int rightMotorChannel = 0;
+const int leftMotorChannel = 1;
+const int rotateJoystickChannel = 0;
+const int moveJoystickChannel = 1;
 
 class Robot: public frc::IterativeRobot
 {
@@ -27,7 +32,8 @@ private:
 	const std::string autoNameCustom = "My Auto";
 	std::string autoSelected;
 
-	frc::Joystick *joy = new frc::Joystick(0);
+	frc::Joystick *moveStick = new frc::Joystick(rotateJoystickChannel);
+	frc::Joystick *rotateStick = new frc::Joystick(moveJoystickChannel);
 	frc::RobotDrive *drive = new frc::RobotDrive(leftMotorChannel, rightMotorChannel);
 
 public:
@@ -87,7 +93,7 @@ public:
 		while (IsOperatorControl())
 		{
 			// Driving control , powered by wpi RobotDrive::ArcadeDrive algorithms
-			drive->ArcadeDrive(joy);
+			drive->ArcadeDrive(moveStick, Y, rotateStick, X);
 		}
 	}
 
