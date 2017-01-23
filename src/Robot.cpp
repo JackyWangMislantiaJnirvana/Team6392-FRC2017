@@ -11,17 +11,15 @@
 #include <Spark.h>								// Motor controller Header (Spark)
 #include <Joystick.h>							// Joystick Header (general)
 #include <RobotDrive.h>
+#include <AHRS.h>
 
 // Custom Headers
 #include <Robot.h>
 
 //TODO confirm joystickAnxisChannel is correct
-enum joystickAnxisChannel {X, Y, Z, Slider};
-
-const int rightMotorChannel = 0;
-const int leftMotorChannel = 1;
-const int rotateJoystickChannel = 0;
-const int moveJoystickChannel = 1;
+enum joystickAnxisChannel {X = 0, Y = 1, Z = 2, Slider = 3};
+enum joystickChannel {rotateJoystickChannel = 1, moveJoystickChannel = 0};
+enum motorChannel {rightMotorChannel = 0, leftMotorChannel = 1};
 
 class Robot: public frc::IterativeRobot
 {
@@ -35,6 +33,7 @@ private:
 	frc::Joystick *moveStick = new frc::Joystick(rotateJoystickChannel);
 	frc::Joystick *rotateStick = new frc::Joystick(moveJoystickChannel);
 	frc::RobotDrive *drive = new frc::RobotDrive(leftMotorChannel, rightMotorChannel);
+	AHRS *ahrs = new AHRS(SerialPort::kMXP);
 
 public:
 	void RobotInit()
@@ -93,7 +92,11 @@ public:
 		while (IsOperatorControl())
 		{
 			// Driving control , powered by wpi RobotDrive::ArcadeDrive algorithms
-			drive->ArcadeDrive(moveStick, Y, rotateStick, X);
+			double moveValue = moveStick->GetRawAxis(Y);
+			double rotateValue = rotateStick->GetRawAxis(X);
+			frc::SmartDashboard::PutNumber("Move Value", moveValue);
+			frc::SmartDashboard::PutNumber("Rotate Value", rotateValue);
+			drive->ArcadeDrive(-moveValue, -rotateValue);
 		}
 	}
 
