@@ -8,102 +8,132 @@
 #include <LiveWindow/LiveWindow.h>
 #include <SmartDashboard/SendableChooser.h>
 #include <SmartDashboard/SmartDashboard.h>
-#include <Spark.h>								// Motor controller Header (Spark)
 #include <Joystick.h>							// Joystick Header (general)
 #include <RobotDrive.h>
 #include <AHRS.h>
+#include <Timer.h>
+#include <RobotDrive.h>
 
 // Custom Headers
 #include <Robot.h>
+#include <Driver.h>
 
-//TODO confirm joystickAnxisChannel is correct
-enum joystickAnxisChannel {X = 0, Y = 1, Z = 2, Slider = 3};
-enum joystickChannel {rotateJoystickChannel = 1, moveJoystickChannel = 0};
-enum motorChannel {rightMotorChannel = 0, leftMotorChannel = 1};
-
-class Robot: public frc::IterativeRobot
+/*	Robot() - Constructor for Robot class
+ * ----------------------------
+ * It is called once when the program is booted
+ * Initialize objects and variables
+ */
+Robot::Robot()
 {
-private:
-	frc::LiveWindow* lw = LiveWindow::GetInstance();
-	frc::SendableChooser<std::string> chooser;
-	const std::string autoNameDefault = "Default";
-	const std::string autoNameCustom = "My Auto";
-	std::string autoSelected;
+	drive = new frc::RobotDrive(Driver::leftMotorChannel, Driver::rightMotorChannel);
+	moveStick = new frc::Joystick(moveJoystickChannel);
+	rotateStick = new frc::Joystick(rotateJoystickChannel);
+}
 
-	frc::Joystick *moveStick = new frc::Joystick(rotateJoystickChannel);
-	frc::Joystick *rotateStick = new frc::Joystick(moveJoystickChannel);
-	frc::RobotDrive *drive = new frc::RobotDrive(leftMotorChannel, rightMotorChannel);
-	AHRS *ahrs = new AHRS(SerialPort::kMXP);
 
-public:
-	void RobotInit()
+/* RobotInit() - Initializer after the constructor
+ * ----------------------------
+ * It is called after the constructor is called.
+ */
+void Robot::RobotInit()
+{
+	chooser.AddDefault(autoNameDefault, autoNameDefault);
+	chooser.AddObject(autoNameCustom, autoNameCustom);
+	frc::SmartDashboard::PutData("Auto Modes", &chooser);
+}
+
+/*
+ * This autonomous (along with the chooser code above) shows how to select
+ * between different autonomous modes using the dashboard. The sendable
+ * chooser code works with the Java SmartDashboard. If you prefer the
+ * LabVIEW Dashboard, remove all of the chooser code and uncomment the
+ * GetString line to get the auto name from the text box below the Gyro.
+ *
+ * You can add additional auto modes by adding additional comparisons to the
+ * if-else structure below with additional strings. If using the
+ * SendableChooser make sure to add them to the chooser code above as well.
+ */
+
+
+/* AutonomounsInit() - Initializer for Auto stage
+ *-----------------------------------
+ *
+ */
+void Robot::AutonomousInit()
+{
+	autoSelected = chooser.GetSelected();
+	// std::string autoSelected = SmartDashboard::GetString("Auto Selector", autoNameDefault);
+	std::cout << "Auto selected: " << autoSelected << std::endl;
+
+	if (autoSelected == autoNameCustom)
 	{
-		chooser.AddDefault(autoNameDefault, autoNameDefault);
-		chooser.AddObject(autoNameCustom, autoNameCustom);
-		frc::SmartDashboard::PutData("Auto Modes", &chooser);
+		// Custom Auto goes here
 	}
-
-	/*
-	 * This autonomous (along with the chooser code above) shows how to select
-	 * between different autonomous modes using the dashboard. The sendable
-	 * chooser code works with the Java SmartDashboard. If you prefer the
-	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-	 * GetString line to get the auto name from the text box below the Gyro.
-	 *
-	 * You can add additional auto modes by adding additional comparisons to the
-	 * if-else structure below with additional strings. If using the
-	 * SendableChooser make sure to add them to the chooser code above as well.
-	 */
-	void AutonomousInit() override
+	else
 	{
-		autoSelected = chooser.GetSelected();
-		// std::string autoSelected = SmartDashboard::GetString("Auto Selector", autoNameDefault);
-		std::cout << "Auto selected: " << autoSelected << std::endl;
-
-		if (autoSelected == autoNameCustom)
-		{
-			// Custom Auto goes here
-		}
-		else
-		{
-			// Default Auto goes here
-		}
+		// Default Auto goes here
 	}
+}
 
-	void AutonomousPeriodic()
+
+/* AutonomousPeriodic()
+ *-----------------------------------
+ * It is called once and once again in the auto stage,
+ * in order to provide some control functionalities.
+ */
+void Robot::AutonomousPeriodic()
+{
+	if (autoSelected == autoNameCustom)
 	{
-		if (autoSelected == autoNameCustom)
-		{
-			// Custom Auto goes here
-		}
-		else
-		{
-			// Default Auto goes here
-		}
+		// Custom Auto goes here
 	}
-
-	void TeleopInit()
+	else
 	{
-
+		// Default Auto goes here
 	}
+}
 
-	void TeleopPeriodic()
+/* TeleopInit() - perform preperation before tele-operate stage
+ *-----------------------------------
+ *
+ *
+ */
+void Robot::TeleopInit()
+{
+
+}
+
+/*
+ *-----------------------------------
+ *
+ *
+
+ *
+ *
+ *
+ *
+ */
+void Robot::TeleopPeriodic()
+{
+	while (IsOperatorControl())
 	{
-		while (IsOperatorControl())
-		{
-			// Driving control , powered by wpi RobotDrive::ArcadeDrive algorithms
-			double moveValue = moveStick->GetRawAxis(Y);
-			double rotateValue = rotateStick->GetRawAxis(X);
-			frc::SmartDashboard::PutNumber("Move Value", moveValue);
-			frc::SmartDashboard::PutNumber("Rotate Value", rotateValue);
-			drive->ArcadeDrive(-moveValue, -rotateValue);
-		}
+		// Driving control , powered by wpi RobotDrive::ArcadeDrive algorithms
+		double moveValue = moveStick->GetRawAxis(Y);
+		double rotateValue = rotateStick->GetRawAxis(X);
+		frc::SmartDashboard::PutNumber("Move Value", moveValue);
+		frc::SmartDashboard::PutNumber("Rotate Value", rotateValue);
+		drive->ArcadeDrive(-moveValue, -rotateValue);
 	}
+}
 
-	void TestPeriodic()
-	{
-		lw->Run();
-	}
-};
+/* TestPeriodic()
+ *-----------------------------------
+ *
+ *
+ */
+void Robot::TestPeriodic()
+{
+	lw->Run();
+}
 
 START_ROBOT_CLASS(Robot)
