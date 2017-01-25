@@ -8,8 +8,16 @@ class Driver
 {
 private:
 	const double driveParameter = 0.7;
-	frc::Spark *leftMotor, *rightMotor;
-	AHRS *nav;
+	const double Pi = 3.1415;
+	const int SamplesToAverage = 5;
+	const double DistancePerPulse = (1.0 / 360.0) * 2.0 * Pi * 1.5;
+	const double MinRate = 1.0;
+	enum encoderChannels {AChannel = 1, BChannel = 0};
+
+	frc::Spark *leftBaseMotor, *rightBaseMotor;
+	frc::Encoder *baseEncoder;
+	AHRS *navigator;
+
 public:
 	enum driveMotorChannel {rightMotorChannel = 0, leftMotorChannel = 1};
 	enum direction {turnLeft = 0, turnRight = 1, forward = 2, back = 3};
