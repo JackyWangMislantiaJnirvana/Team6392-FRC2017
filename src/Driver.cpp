@@ -7,7 +7,7 @@ Driver::Driver(driveMotorChannel leftMotorC, driveMotorChannel rightMotorC)
 	//initialize member objects
 	leftBaseMotor = new frc::Spark(leftMotorC);
 	rightBaseMotor = new frc::Spark(rightMotorC);
-	navigator = new AHRS(SerialPort::kMXP);
+	navigator = new AHRS(frc::SPI::Port::kMXP);
 	baseEncoder = new frc::Encoder(AChannel, BChannel);
 
 	/* Defines the number of samples to average when determining the rate.
@@ -35,7 +35,8 @@ Driver::Driver(driveMotorChannel leftMotorC, driveMotorChannel rightMotorC)
 Driver::~Driver()
 {
 	delete navigator;
-	delete leftBaseMotor, rightBaseMotor;
+	delete leftBaseMotor;
+	delete rightBaseMotor;
 }
 
 void Driver::OperatorDrive(frc::Joystick *rotateJoystick, frc::Joystick *moveJoystick)

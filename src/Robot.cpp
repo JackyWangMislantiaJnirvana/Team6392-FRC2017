@@ -22,6 +22,7 @@
  * ----------------------------
  * It is called once when the program is booted
  * Initialize objects and variables
+ *
  */
 Robot::Robot()
 {
@@ -34,6 +35,7 @@ Robot::Robot()
 /* RobotInit() - Initializer after the constructor
  * ----------------------------
  * It is called after the constructor is called.
+ *
  */
 void Robot::RobotInit()
 {
@@ -59,6 +61,8 @@ void Robot::RobotInit()
  *-----------------------------------
  *
  */
+
+//TODO Figure out how to manage auto system
 void Robot::AutonomousInit()
 {
 	autoSelected = chooser.GetSelected();
@@ -80,6 +84,7 @@ void Robot::AutonomousInit()
  *-----------------------------------
  * It is called once and once again in the auto stage,
  * in order to provide some control functionalities.
+ *
  */
 void Robot::AutonomousPeriodic()
 {
@@ -106,12 +111,6 @@ void Robot::TeleopInit()
 /*
  *-----------------------------------
  *
- *
-
- *
- *
- *
- *
  */
 void Robot::TeleopPeriodic()
 {
@@ -128,7 +127,6 @@ void Robot::TeleopPeriodic()
 
 /* TestPeriodic()
  *-----------------------------------
- *
  *
  */
 void Robot::TestPeriodic()
