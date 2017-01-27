@@ -14,8 +14,8 @@ private:
 	const double MinRate = 1.0;
 	enum encoderChannels {AChannel = 1, BChannel = 0};
 
-	frc::Spark *leftBaseMotor, *rightBaseMotor;
-	frc::Encoder *baseEncoder;
+	frc::Spark leftBaseMotor, rightBaseMotor;
+	frc::Encoder baseEncoder;
 	AHRS *navigator;
 
 public:

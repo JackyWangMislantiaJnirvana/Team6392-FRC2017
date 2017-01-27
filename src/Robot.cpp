@@ -24,11 +24,11 @@
  * Initialize objects and variables
  *
  */
-Robot::Robot()
+Robot::Robot():
+	moveStick(moveJoystickChannel),
+	rotateStick(rotateJoystickChannel)
 {
-	drive = new frc::RobotDrive(Driver::leftMotorChannel, Driver::rightMotorChannel);
-	moveStick = new frc::Joystick(moveJoystickChannel);
-	rotateStick = new frc::Joystick(rotateJoystickChannel);
+
 }
 
 
@@ -117,11 +117,6 @@ void Robot::TeleopPeriodic()
 	while (IsOperatorControl())
 	{
 		// Driving control , powered by wpi RobotDrive::ArcadeDrive algorithms
-		double moveValue = moveStick->GetRawAxis(Y);
-		double rotateValue = rotateStick->GetRawAxis(X);
-		frc::SmartDashboard::PutNumber("Move Value", moveValue);
-		frc::SmartDashboard::PutNumber("Rotate Value", rotateValue);
-		drive->ArcadeDrive(-moveValue, -rotateValue);
 	}
 }
 

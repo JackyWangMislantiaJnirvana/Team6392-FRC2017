@@ -18,9 +18,8 @@ private:
 	const std::string autoNameCustom = "My Auto";
 	std::string autoSelected;
 
-	frc::Joystick *moveStick;
-	frc::Joystick *rotateStick;
-	frc::RobotDrive *drive;
+	frc::Joystick moveStick;
+	frc::Joystick rotateStick;
 
 public:
 	Robot();
