@@ -35,10 +35,10 @@ Driver::~Driver()
 	delete navigator;
 }
 
+// KISS driver algorithms copied from Tang's code for FRC2016
 void Driver::OperatorDrive(frc::Joystick *rotateJoystick, frc::Joystick *moveJoystick)
 {
 	// TODO Test this.
-	// The algorithms below is copied from Tang's code for FRC2016
 	double rawMoveValue, rawRotateValue;
 	double leftBaseMotorPower, rightBaseMotorPower;
 		// EXP Is that OK? Using GetAxis() ??

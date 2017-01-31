@@ -47,12 +47,8 @@ void Robot::RobotInit()
  */
 
 
-/* AutonomounsInit() - Initializer for Auto stage
- *-----------------------------------
- *
- */
-
-//TODO Figure out how to manage auto system
+// Initialization before auto stage
+	//TODO Figure out how to manage auto system
 void Robot::AutonomousInit()
 {
 	autoSelected = chooser.GetSelected();
@@ -69,13 +65,7 @@ void Robot::AutonomousInit()
 	}
 }
 
-
-/* AutonomousPeriodic()
- *-----------------------------------
- * It is called once and once again in the auto stage,
- * in order to provide some control functionalities.
- *
- */
+// Periodically called in auto stage
 void Robot::AutonomousPeriodic()
 {
 	if (autoSelected == autoNameCustom)
@@ -88,20 +78,13 @@ void Robot::AutonomousPeriodic()
 	}
 }
 
-/* TeleopInit() - perform preperation before tele-operate stage
- *-----------------------------------
- *
- *
- */
+// Initialization before TELEOP stage
 void Robot::TeleopInit()
 {
 
 }
 
-/*
- *-----------------------------------
- *
- */
+// Periodically called in TELEOP stage
 void Robot::TeleopPeriodic()
 {
 	while (IsOperatorControl())
@@ -110,10 +93,7 @@ void Robot::TeleopPeriodic()
 	}
 }
 
-/* TestPeriodic()
- *-----------------------------------
- *
- */
+// Periodically called in Test mode
 void Robot::TestPeriodic()
 {
 	lw->Run();
