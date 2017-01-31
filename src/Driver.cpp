@@ -1,6 +1,4 @@
 #include <Driver.h>
-#include <cmath>
-#include <cmath>
 
 Driver::Driver(driveMotorChannel leftMotorC, driveMotorChannel rightMotorC):
 	leftBaseMotor(leftMotorC),

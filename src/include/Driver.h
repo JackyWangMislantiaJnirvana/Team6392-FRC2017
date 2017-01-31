@@ -1,8 +1,11 @@
-#pragma once
+#include <iostream>
 
 #include <AHRS.h>
 #include <Spark.h>
-#include <iostream>
+
+// Include Protection
+#ifndef DRIVER_H_
+#define DRIVER_H_
 
 class Driver
 {
@@ -28,3 +31,5 @@ public:
 	void autoMove(direction direct, double distance);
 	void autoTurn(direction direct, double angle);
 };
+
+#endif // Include Protection

@@ -1,18 +1,8 @@
-// Headers from standard library
-#include <iostream>
-#include <memory>
-#include <string>
-
-// Headers from WPILIB
-#include <IterativeRobot.h>
-#include <LiveWindow/LiveWindow.h>
-#include <SmartDashboard/SendableChooser.h>
-#include <SmartDashboard/SmartDashboard.h>
-#include <Joystick.h>							// Joystick Header (general)
-#include <RobotDrive.h>
-#include <AHRS.h>
-#include <Timer.h>
-#include <RobotDrive.h>
+/*
+ * Robot.cpp
+ *
+ * Main file of robot code
+ */
 
 // Custom Headers
 #include <Robot.h>
