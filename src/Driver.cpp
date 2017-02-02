@@ -1,9 +1,9 @@
 #include <Driver.h>
 
-Driver::Driver(driveMotorChannel leftMotorC, driveMotorChannel rightMotorC):
+Driver::Driver(RobotMap::driveMotorChannel leftMotorC, RobotMap::driveMotorChannel rightMotorC):
 	leftBaseMotor(leftMotorC),
 	rightBaseMotor(rightMotorC),
-	baseEncoder(AChannel, BChannel)
+	baseEncoder(RobotMap::AChannel, RobotMap::BChannel)
 {
 	//initialize member objects
 	navigator = new AHRS(frc::SPI::Port::kMXP);
@@ -47,8 +47,8 @@ void Driver::OperatorDrive(frc::Joystick *rotateJoystick, frc::Joystick *moveJoy
 	leftBaseMotorPower = rawMoveValue + Driver::driveParameter * rawRotateValue;
 	rightBaseMotorPower = rawMoveValue - Driver::driveParameter * rawRotateValue;
 		// Perform motor actions
-	leftBaseMotor.Set(leftBaseMotorPower);
-	rightBaseMotor.Set(rightBaseMotorPower);
+	leftBaseMotor.Set(RobotMap::isRightLeftReflection ? leftBaseMotorPower : -leftBaseMotorPower);
+	rightBaseMotor.Set(RobotMap::isRightLeftReflection ? rightBaseMotorPower: -rightBaseMotorPower);
 }
 
 void Driver::autoMove(Driver::direction direct, double distance)

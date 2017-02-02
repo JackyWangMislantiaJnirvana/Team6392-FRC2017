@@ -3,6 +3,8 @@
 #include <AHRS.h>
 #include <Spark.h>
 
+#include "RobotMap.h"
+
 // Include Protection
 #ifndef DRIVER_H_
 #define DRIVER_H_
@@ -15,17 +17,15 @@ private:
 	const int SamplesToAverage = 5;
 	const double DistancePerPulse = (1.0 / 360.0) * 2.0 * Pi * 1.5;
 	const double MinRate = 1.0;
-	enum encoderChannels {AChannel = 1, BChannel = 0};
 
 	frc::Spark leftBaseMotor, rightBaseMotor;
 	frc::Encoder baseEncoder;
 	AHRS *navigator;
 
 public:
-	enum driveMotorChannel {rightMotorChannel = 0, leftMotorChannel = 1};
 	enum direction {turnLeft = 0, turnRight = 1, forward = 2, back = 3};
 
-	Driver(driveMotorChannel leftMotor, driveMotorChannel rightMotor);
+	Driver(RobotMap::driveMotorChannel leftMotor, RobotMap::driveMotorChannel rightMotor);
 	~Driver();
 	void OperatorDrive(frc::Joystick *rotateJoystick, frc::Joystick *moveJoystick);
 	void autoMove(direction direct, double distance);
