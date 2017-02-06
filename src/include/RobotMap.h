@@ -15,9 +15,12 @@ namespace RobotMap
 	enum joystickChannel {rotateJoystickChannel = 1, moveJoystickChannel = 0};
 
 	enum baseMotorChannel {rightMotorChannel = 0, leftMotorChannel = 1};
-	enum upperMotorChannel {ballBooster = 2, ballActuator = 3, gearActuator = 4, climbBooster = 5};
+	enum upperMotorChannel {ballBoosterChannel = 2, ballActuatorChannel = 3,
+							gearActuatorChannel = 4, climbBoosterChannel = 5};
 
 	enum encoderChannels {AChannel = 1, BChannel = 0};
+	enum limitSwitchChannels {ballLimitChannel = 0, gearLimitChannel = 1};
+	enum limitSwitchStatus {triggered = 1, free = 0};
 }
 
 #endif //ROBOTMAP_H_
