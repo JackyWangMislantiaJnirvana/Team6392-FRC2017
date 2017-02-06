@@ -1,6 +1,6 @@
 #include <Driver.h>
 
-Driver::Driver(RobotMap::driveMotorChannel leftMotorC, RobotMap::driveMotorChannel rightMotorC):
+Driver::Driver(RobotMap::baseMotorChannel leftMotorC, RobotMap::baseMotorChannel rightMotorC):
 	leftBaseMotor(leftMotorC),
 	rightBaseMotor(rightMotorC),
 	baseEncoder(RobotMap::AChannel, RobotMap::BChannel)
