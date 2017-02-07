@@ -19,13 +19,15 @@ private:
 	const double DistancePerPulse = (1.0 / 360.0) * 2.0 * Pi * 1.5;
 	const double MinRate = 1.0;
 
-	frc::Spark leftBaseMotor, rightBaseMotor;
+	frc::Spark leftBaseMotor;
+	frc::Spark rightBaseMotor;
 	frc::Encoder baseEncoder;
 	AHRS *navigator;
 
 public:
 	enum direction {turnLeft = 0, turnRight = 1, forward = 2, back = 3};
 
+	//Driver(RobotMap::baseMotorChannel leftMotor, RobotMap::baseMotorChannel rightMotor);
 	Driver(RobotMap::baseMotorChannel leftMotor, RobotMap::baseMotorChannel rightMotor);
 	~Driver();
 	void OperatorDrive(frc::Joystick *rotateJoystick, frc::Joystick *moveJoystick);

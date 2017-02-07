@@ -9,12 +9,12 @@
 
 namespace RobotMap
 {
-	static bool isRightLeftReflection = 1;
+	static bool isRightLeftReflection = 0;
 
 	enum joystickAnxisChannel {X = 0, Y = 1, Z = 2, Slider = 3};
-	enum joystickChannel {rotateJoystickChannel = 1, moveJoystickChannel = 0};
+	enum joystickChannel {rotateJoystickChannel = 0, moveJoystickChannel = 1};
 
-	enum baseMotorChannel {rightMotorChannel = 0, leftMotorChannel = 1};
+	enum baseMotorChannel {rightMotorChannel = 1, leftMotorChannel = 0};
 	enum upperMotorChannel {ballBoosterChannel = 2, ballActuatorChannel = 3,
 							gearActuatorChannel = 4, climbBoosterChannel = 5};
 

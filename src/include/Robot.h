@@ -18,13 +18,15 @@
 #include <RobotDrive.h>
 #include <AHRS.h>
 #include <Timer.h>
+#include "Driver.h"
+#include "RobotMap.h"
 
 // Include Protection
 #ifndef ROBOT_H_
 #define ROBOT_H_
 
 enum joystickAnxisChannel {X = 0, Y = 1, Z = 2, Slider = 3};
-enum joystickChannel {rotateJoystickChannel = 1, moveJoystickChannel = 0};
+enum joystickChannel {rotateJoystickChannel = 0, moveJoystickChannel = 1};
 
 class Robot: public frc::IterativeRobot
 {
@@ -37,6 +39,9 @@ private:
 
 	frc::Joystick moveStick;
 	frc::Joystick rotateStick;
+
+	//frc::RobotDrive robotDrive;
+	Driver DTGDriver;
 
 public:
 	Robot();

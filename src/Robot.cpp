@@ -16,9 +16,13 @@
  */
 Robot::Robot():
 	moveStick(moveJoystickChannel),
-	rotateStick(rotateJoystickChannel)
-{
+	rotateStick(rotateJoystickChannel),
+	//EXP
+//	robotDrive(RobotMap::leftMotorChannel, RobotMap::rightMotorChannel),
+	DTGDriver(RobotMap::leftMotorChannel, RobotMap::rightMotorChannel)
 
+	//DBMSG
+{
 }
 
 
@@ -89,7 +93,9 @@ void Robot::TeleopPeriodic()
 {
 	while (IsOperatorControl())
 	{
-		// Driving control , powered by wpi RobotDrive::ArcadeDrive algorithms
+		//EXP Driving control , powered by wpi RobotDrive::ArcadeDrive algorithms
+		//robotDrive.ArcadeDrive(moveStick.GetRawAxis(Joystick::kDefaultYAxis), -rotateStick.GetRawAxis(Joystick::kDefaultXAxis));
+		DTGDriver.OperatorDrive(&rotateStick, &moveStick);
 	}
 }
 

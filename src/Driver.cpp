@@ -1,5 +1,6 @@
 #include <Driver.h>
 
+//Driver::Driver(RobotMap::baseMotorChannel leftMotorC, RobotMap::baseMotorChannel rightMotorC):
 Driver::Driver(RobotMap::baseMotorChannel leftMotorC, RobotMap::baseMotorChannel rightMotorC):
 	leftBaseMotor(leftMotorC),
 	rightBaseMotor(rightMotorC),
@@ -42,8 +43,9 @@ void Driver::OperatorDrive(frc::Joystick *rotateJoystick, frc::Joystick *moveJoy
 	double rawMoveValue, rawRotateValue;
 	double leftBaseMotorPower, rightBaseMotorPower;
 		// EXP Is that OK? Using GetAxis() ??
-	rawMoveValue = -moveJoystick->GetAxis(frc::Joystick::kYAxis);
-	rawRotateValue = rotateJoystick->GetAxis(frc::Joystick::kXAxis);
+	rawMoveValue = -moveJoystick->GetRawAxis(RobotMap::X); //TODO 这里有点奇怪
+	rawRotateValue = -rotateJoystick->GetRawAxis(RobotMap::Y);
+	std::cout << "MoveValue: " << rawMoveValue << "RotateValue: " << rawRotateValue << std::endl;
 	leftBaseMotorPower = rawMoveValue + Driver::driveParameter * rawRotateValue;
 	rightBaseMotorPower = rawMoveValue - Driver::driveParameter * rawRotateValue;
 		// Perform motor actions
