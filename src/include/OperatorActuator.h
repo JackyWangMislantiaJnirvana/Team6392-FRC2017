@@ -11,6 +11,7 @@
 #include <PIDController.h>
 #include <DigitalInput.h>
 #include <Spark.h>
+#include <RobotMap.h>
 
 class OperatorActuator
 {

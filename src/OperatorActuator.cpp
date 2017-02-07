@@ -7,8 +7,8 @@
 
 OperatorActuator::OperatorActuator(RobotMap::upperMotorChannel boosterChannel,
 									RobotMap::upperMotorChannel actuatorChannel):
-		booster(boosterChannel),actuator(actuatorChannel),
-		currentSpeed(0.0L), currentPosition(OperatorActuator::UpperPosition)
+		booster(boosterChannel), actuator(actuatorChannel), limitSwitch(0),
+		currentPosition(OperatorActuator::UpperPosition), currentSpeed(0.0L)
 {}
 
 void OperatorActuator::setSpeed(double speed)
