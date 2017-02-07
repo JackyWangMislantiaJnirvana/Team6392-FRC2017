@@ -1,3 +1,7 @@
+// Include Protection
+#ifndef DRIVER_H_
+#define DRIVER_H_
+
 #include <iostream>
 
 #include <AHRS.h>
@@ -5,9 +9,6 @@
 
 #include "RobotMap.h"
 
-// Include Protection
-#ifndef DRIVER_H_
-#define DRIVER_H_
 
 class Driver
 {
