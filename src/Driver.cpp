@@ -40,17 +40,16 @@ Driver::~Driver()
 void Driver::OperatorDrive(frc::Joystick *rotateJoystick,
 						   frc::Joystick *moveJoystick)
 {
-	// TODO Test this.
 	double rawMoveValue, rawRotateValue;
 	double leftBaseMotorPower, rightBaseMotorPower;
-	// EXP Is that OK? Using GetAxis() ??
-	rawMoveValue = -moveJoystick->GetRawAxis(RobotMap::X); //TODO 这里有点奇怪
-	rawRotateValue = -rotateJoystick->GetRawAxis(RobotMap::Y);
-	std::cout << "MoveValue: " << rawMoveValue << "RotateValue: "
-			<< rawRotateValue << std::endl;
+	rawMoveValue = -moveJoystick->GetRawAxis(RobotMap::Y); // TESTME 摇杆是否正常？
+	rawRotateValue = -rotateJoystick->GetRawAxis(RobotMap::X); // TESTME 摇杆是否正常？
+
+	std::cout << "[Debug MSG] " << "MoveValue: " << rawMoveValue << "RotateValue: " << rawRotateValue << std::endl;
+
 	leftBaseMotorPower = rawMoveValue + Driver::driveParameter * rawRotateValue;
-	rightBaseMotorPower = rawMoveValue
-			- Driver::driveParameter * rawRotateValue;
+	rightBaseMotorPower = rawMoveValue - Driver::driveParameter * rawRotateValue;
+
 	// Perform motor actions
 	leftBaseMotor.Set(	RobotMap::isRightLeftReflection ?
 						leftBaseMotorPower : -leftBaseMotorPower);
