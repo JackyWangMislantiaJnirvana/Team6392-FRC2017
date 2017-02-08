@@ -1,10 +1,10 @@
 #include <Driver.h>
 
 //Driver::Driver(RobotMap::baseMotorChannel leftMotorC, RobotMap::baseMotorChannel rightMotorC):
-Driver::Driver(RobotMap::baseMotorChannel leftMotorC, RobotMap::baseMotorChannel rightMotorC):
-	leftBaseMotor(leftMotorC),
-	rightBaseMotor(rightMotorC),
-	baseEncoder(RobotMap::AChannel, RobotMap::BChannel)
+Driver::Driver(RobotMap::baseMotorChannel leftMotorC,
+			   RobotMap::baseMotorChannel rightMotorC) :
+		leftBaseMotor(leftMotorC), rightBaseMotor(rightMotorC),
+		baseEncoder(RobotMap::AChannel, RobotMap::BChannel)
 {
 	//initialize member objects
 	navigator = new AHRS(frc::SPI::Port::kMXP);
@@ -37,20 +37,25 @@ Driver::~Driver()
 }
 
 // KISS driver algorithms copied from Tang's code for FRC2016
-void Driver::OperatorDrive(frc::Joystick *rotateJoystick, frc::Joystick *moveJoystick)
+void Driver::OperatorDrive(frc::Joystick *rotateJoystick,
+						   frc::Joystick *moveJoystick)
 {
 	// TODO Test this.
 	double rawMoveValue, rawRotateValue;
 	double leftBaseMotorPower, rightBaseMotorPower;
-		// EXP Is that OK? Using GetAxis() ??
+	// EXP Is that OK? Using GetAxis() ??
 	rawMoveValue = -moveJoystick->GetRawAxis(RobotMap::X); //TODO 这里有点奇怪
 	rawRotateValue = -rotateJoystick->GetRawAxis(RobotMap::Y);
-	std::cout << "MoveValue: " << rawMoveValue << "RotateValue: " << rawRotateValue << std::endl;
+	std::cout << "MoveValue: " << rawMoveValue << "RotateValue: "
+			<< rawRotateValue << std::endl;
 	leftBaseMotorPower = rawMoveValue + Driver::driveParameter * rawRotateValue;
-	rightBaseMotorPower = rawMoveValue - Driver::driveParameter * rawRotateValue;
-		// Perform motor actions
-	leftBaseMotor.Set(RobotMap::isRightLeftReflection ? leftBaseMotorPower : -leftBaseMotorPower);
-	rightBaseMotor.Set(RobotMap::isRightLeftReflection ? rightBaseMotorPower: -rightBaseMotorPower);
+	rightBaseMotorPower = rawMoveValue
+			- Driver::driveParameter * rawRotateValue;
+	// Perform motor actions
+	leftBaseMotor.Set(	RobotMap::isRightLeftReflection ?
+						leftBaseMotorPower : -leftBaseMotorPower);
+	rightBaseMotor.Set(	RobotMap::isRightLeftReflection ?
+						rightBaseMotorPower : -rightBaseMotorPower);
 }
 
 void Driver::autoMove(Driver::direction direct, double distance)
