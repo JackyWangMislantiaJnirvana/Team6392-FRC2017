@@ -3,11 +3,26 @@
 //Driver::Driver(RobotMap::baseMotorChannel leftMotorC, RobotMap::baseMotorChannel rightMotorC):
 Driver::Driver(RobotMap::baseMotorChannel leftMotorC,
 			   RobotMap::baseMotorChannel rightMotorC) :
+		// No longer used
+//		voidMotor(RobotMap::voidMotorChannel),
 		leftBaseMotor(leftMotorC), rightBaseMotor(rightMotorC),
-		baseEncoder(RobotMap::AChannel, RobotMap::BChannel)
+		baseEncoder(RobotMap::AChannel, RobotMap::BChannel),
+		turnController(NULL),
+		turnPIDControllerOutput(0.0l)
 {
-	//initialize member objects
-	navigator = new AHRS(frc::SPI::Port::kMXP);
+	// initialize IMU
+	// if anything bad happened, output the reason into driver station console
+	try
+	{
+		navigator = new AHRS(frc::SPI::Port::kMXP);
+	}
+	catch (std::exception ex)
+	{
+		std::string err_string = "Error instantiating NavX-MXP";
+		err_string += ex.what();
+		frc::DriverStation::ReportError(err_string.c_str());
+	}
+
 
 	/* Defines the number of samples to average when determining the rate.
 	 * On a quadrature encoder, values range from 1-255; larger values
@@ -61,7 +76,43 @@ void Driver::autoMove(Driver::direction direct, double distance)
 {
 	//TODO finish this (using Encoders)
 }
-void Driver::autoTurn(Driver::direction direct, double angle)
+void Driver::autoTurn(Driver::direction turnDirect, double angle)
 {
-	//TODO finish this (using NavX Gyro)
+	double leftBaseMotorPower = 0.0l;
+	double rightBaseMotorPower = 0.0l;
+	turnController = new frc::PIDController(turnKP, turnKI, turnKD, navigator, this);
+
+	// Reset the IMU
+	navigator->Reset();
+
+	turnController->SetInputRange(PIDInputMin, PIDInputMax);
+	turnController->SetOutputRange(PIDOutputMin, PIDOutputMax);
+	turnController->SetContinuous(true);
+	turnController->SetAbsoluteTolerance(ToleranceDegrees);
+	switch (turnDirect)
+	{
+		// TESTME 确认不会转反... = =
+		case turnClockwise:
+			turnController->SetSetpoint(angle);
+			break;
+		case turnAntiClockwise:
+			turnController->SetSetpoint(-angle);
+			break;
+		default:
+			break;
+	}
+
+	// Stops the loop if the error is small enough to be ignored.
+	while(std::fabs(turnController->GetError()) <= ToleranceDegrees)
+	{
+		// Perform motor powers
+		leftBaseMotor.Set(leftBaseMotorPower);
+		rightBaseMotor.Set(rightBaseMotorPower);
+	}
+
+}
+
+void Driver::PIDWrite(double output)
+{
+	turnPIDControllerOutput = output;
 }

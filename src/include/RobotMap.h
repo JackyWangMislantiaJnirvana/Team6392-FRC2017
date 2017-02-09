@@ -9,7 +9,7 @@
 
 namespace RobotMap
 {
-static bool isRightLeftReflection = 0;
+const bool isRightLeftReflection = 0;
 
 enum joystickAnxisChannel
 {
@@ -31,7 +31,11 @@ enum upperMotorChannel
 	ballBoosterChannel = 2,
 	ballActuatorChannel = 3,
 	gearActuatorChannel = 4,
-	climbBoosterChannel = 5
+	climbBoosterChannel = 5,
+
+	// No longer used
+	// Channel of a motor which dosen't exist
+	voidMotorChannel = 9
 };
 
 enum encoderChannels
