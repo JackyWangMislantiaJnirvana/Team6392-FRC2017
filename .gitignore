@@ -36,3 +36,6 @@ Debug/
 build.properties
 build.xml
 sysProps.xml
+
+#eclipse garbish files
+ChangeLog
