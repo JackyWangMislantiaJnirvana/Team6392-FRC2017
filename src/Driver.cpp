@@ -62,8 +62,8 @@ void Driver::OperatorDrive(frc::Joystick *rotateJoystick,
 
 	std::cout << "[Debug MSG] " << "MoveValue: " << rawMoveValue << "RotateValue: " << rawRotateValue << std::endl;
 
-	leftBaseMotorPower = rawMoveValue + Driver::driveParameter * rawRotateValue;
-	rightBaseMotorPower = rawMoveValue - Driver::driveParameter * rawRotateValue;
+	leftBaseMotorPower = rawMoveValue + Driver::kDriveGain * rawRotateValue;
+	rightBaseMotorPower = rawMoveValue - Driver::kDriveGain * rawRotateValue;
 
 	// Perform motor actions
 	leftBaseMotor.Set(	RobotMap::isRightLeftReflection ?
@@ -80,15 +80,15 @@ void Driver::autoTurn(Driver::direction turnDirect, double angle)
 {
 	double leftBaseMotorPower = 0.0l;
 	double rightBaseMotorPower = 0.0l;
-	turnController = new frc::PIDController(turnKP, turnKI, turnKD, navigator, this);
+	turnController = new frc::PIDController(kTurnPGain, kTurnIGain, kTurnDGain, navigator, this);
 
 	// Reset the IMU
 	navigator->Reset();
 
-	turnController->SetInputRange(PIDInputMin, PIDInputMax);
-	turnController->SetOutputRange(PIDOutputMin, PIDOutputMax);
+	turnController->SetInputRange(kPIDInputMin, kPIDInputMax);
+	turnController->SetOutputRange(kPIDOutputMin, kPIDOutputMax);
 	turnController->SetContinuous(true);
-	turnController->SetAbsoluteTolerance(ToleranceDegrees);
+	turnController->SetAbsoluteTolerance(kToleranceDegrees);
 	switch (turnDirect)
 	{
 		// TESTME 确认不会转反... = =
@@ -103,7 +103,7 @@ void Driver::autoTurn(Driver::direction turnDirect, double angle)
 	}
 
 	// Stops the loop if the error is small enough to be ignored.
-	while(std::fabs(turnController->GetError()) <= ToleranceDegrees)
+	while(std::fabs(turnController->GetError()) <= kToleranceDegrees)
 	{
 		// Perform motor powers
 		leftBaseMotor.Set(leftBaseMotorPower);

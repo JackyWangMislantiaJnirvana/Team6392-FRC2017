@@ -4,7 +4,7 @@
  * Use UTF-8 to view this file, in order to show Chinese properly.
  * */
 
-// Include Protection
+// Include Protection: DRIVER_H_
 #ifndef DRIVER_H_
 #define DRIVER_H_
 
@@ -36,22 +36,22 @@
 class Driver final : public frc::PIDOutput
 {
 private:
-	const double driveParameter = 0.7;
+	const double kDriveGain = 0.7;
 	const double Pi = 3.1415;
 	const int SamplesToAverage = 5;
 	const double DistancePerPulse = (1.0 / 360.0) * 2.0 * Pi * 1.5;
 	const double MinRate = 1.0;
 
-	const double turnKP = 0;
-	const double turnKI = 0;
-	const double turnKD = 0;
-	const double PIDInputMax = 180.0l;
-	const double PIDInputMin = -180.0l;
-	const double PIDOutputMax = 1.0l;
-	const double PIDOutputMin = -1.0l;
-	const double ToleranceDegrees = 2.0l;
+	const double kTurnPGain = 0;
+	const double kTurnIGain = 0;
+	const double kTurnDGain = 0;
+	const double kPIDInputMax = 180.0l;
+	const double kPIDInputMin = -180.0l;
+	const double kPIDOutputMax = 1.0l;
+	const double kPIDOutputMin = -1.0l;
+	const double kToleranceDegrees = 2.0l;
 
-	// No longer used
+	// No longer used. See help message above the class for why.
 	// A motor which doesn't exist, used to cheat PIDController as the output of PID control.
 	// The real output will be gotten from PIDController Class directly.
 //	frc::Spark voidMotor;
@@ -78,4 +78,4 @@ public:
 	void PIDWrite(double output) final;
 };
 
-#endif // Include Protection
+#endif // DRIVER_H_
