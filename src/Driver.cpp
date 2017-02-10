@@ -116,3 +116,15 @@ void Driver::PIDWrite(double output)
 {
 	turnPIDControllerOutput = output;
 }
+
+void Driver::initTestMode(frc::LiveWindow *livewindow)
+{
+	//TESTME live window的行为如何？
+	livewindow->AddActuator("Base Motors", "left Motor", leftBaseMotor);
+	livewindow->AddActuator("Base Motors", "right Motor", rightBaseMotor);
+	livewindow->AddActuator("Auto Rotate", "PID Controller", turnController);
+
+	livewindow->AddSensor("Navigator", "NavX-MXP", navigator);
+
+	livewindow->Run();
+}

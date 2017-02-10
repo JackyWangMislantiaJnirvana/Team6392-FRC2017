@@ -20,8 +20,6 @@ Robot::Robot():
 	//EXP
 //	robotDrive(RobotMap::leftMotorChannel, RobotMap::rightMotorChannel),
 	DTGDriver(RobotMap::leftMotorChannel, RobotMap::rightMotorChannel)
-
-	//DBMSG
 {
 }
 
@@ -86,6 +84,7 @@ void Robot::AutonomousPeriodic()
 void Robot::TeleopInit()
 {
 
+
 }
 
 // Periodically called in TELEOP stage
@@ -99,6 +98,11 @@ void Robot::TeleopPeriodic()
 	}
 }
 
+void Robot::TestInit()
+{
+	//TODO Change this stupid name, "DTGDriver" :P
+	DTGDriver.initTestMode(lw);
+}
 // Periodically called in Test mode
 void Robot::TestPeriodic()
 {

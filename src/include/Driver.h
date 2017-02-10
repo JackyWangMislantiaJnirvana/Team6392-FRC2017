@@ -16,7 +16,7 @@
 
 #include "RobotMap.h"
 
-/* 帮助：
+/* 提示：
  * 		为何Driver类要继承PIDOutput类？
  * -----------------------------------------------------------------------------
  * 	为了自定义如何处理PID运算结果
@@ -42,9 +42,9 @@ private:
 	const double DistancePerPulse = (1.0 / 360.0) * 2.0 * Pi * 1.5;
 	const double MinRate = 1.0;
 
-	const double kTurnPGain = 0;
-	const double kTurnIGain = 0;
-	const double kTurnDGain = 0;
+	double kTurnPGain = 0;
+	double kTurnIGain = 0;
+	double kTurnDGain = 0;
 	const double kPIDInputMax = 180.0l;
 	const double kPIDInputMin = -180.0l;
 	const double kPIDOutputMax = 1.0l;
@@ -76,6 +76,8 @@ public:
 
 	// Inherited from PIDOutput
 	void PIDWrite(double output) final;
+
+	void initTestMode(frc::LiveWindow *livewindow);
 };
 
 #endif // DRIVER_H_

@@ -50,7 +50,8 @@ public:
 	void AutonomousPeriodic();
 	void TeleopInit();
 	void TeleopPeriodic();
-	void TestPeriodic();
+	void TestInit() override;
+	void TestPeriodic() override;
 };
 
 #endif // Include Protection
