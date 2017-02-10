@@ -25,8 +25,8 @@
 #ifndef ROBOT_H_
 #define ROBOT_H_
 
-enum joystickAnxisChannel {X = 0, Y = 1, Z = 2, Slider = 3};
-enum joystickChannel {rotateJoystickChannel = 0, moveJoystickChannel = 1};
+//enum joystickAnxisChannel {X = 0, Y = 1, Z = 2, Slider = 3};
+//enum joystickChannel {rotateJoystickChannel = 0, moveJoystickChannel = 1};
 
 class Robot: public frc::IterativeRobot
 {

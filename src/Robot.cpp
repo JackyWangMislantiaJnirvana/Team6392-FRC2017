@@ -15,8 +15,8 @@
  *
  */
 Robot::Robot():
-	moveStick(moveJoystickChannel),
-	rotateStick(rotateJoystickChannel),
+	moveStick(RobotMap::moveJoystickChannel),
+	rotateStick(RobotMap::rotateJoystickChannel),
 	//EXP
 //	robotDrive(RobotMap::leftMotorChannel, RobotMap::rightMotorChannel),
 	DTGDriver(RobotMap::leftMotorChannel, RobotMap::rightMotorChannel)
