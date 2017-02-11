@@ -19,7 +19,7 @@ Robot::Robot():
 	rotateStick(RobotMap::rotateJoystickChannel),
 	//EXP
 //	robotDrive(RobotMap::leftMotorChannel, RobotMap::rightMotorChannel),
-	DTGDriver(RobotMap::leftMotorChannel, RobotMap::rightMotorChannel)
+	driver(RobotMap::leftMotorChannel, RobotMap::rightMotorChannel)
 {
 }
 
@@ -94,14 +94,13 @@ void Robot::TeleopPeriodic()
 	{
 		//EXP Driving control , powered by wpi RobotDrive::ArcadeDrive algorithms
 		//robotDrive.ArcadeDrive(moveStick.GetRawAxis(Joystick::kDefaultYAxis), -rotateStick.GetRawAxis(Joystick::kDefaultXAxis));
-		DTGDriver.OperatorDrive(&rotateStick, &moveStick);
+		driver.OperatorDrive(&rotateStick, &moveStick);
 	}
 }
 
 void Robot::TestInit()
 {
-	//TODO Change this stupid name, "DTGDriver" :P
-	DTGDriver.initTestMode(lw);
+	driver.initTestMode(lw);
 }
 // Periodically called in Test mode
 void Robot::TestPeriodic()

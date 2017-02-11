@@ -41,7 +41,7 @@ private:
 	frc::Joystick rotateStick;
 
 	//frc::RobotDrive robotDrive;
-	Driver DTGDriver;
+	Driver driver;
 
 public:
 	Robot();
