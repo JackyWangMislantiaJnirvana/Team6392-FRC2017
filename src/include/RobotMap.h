@@ -10,6 +10,7 @@
 namespace RobotMap
 {
 const bool isRightLeftReflection = 0;
+const double delayTime = 0.1l;
 
 enum joystickAnxisChannel
 {

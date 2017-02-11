@@ -1,8 +1,7 @@
 /*
- * OperatorActuator.h
+ * OperatorActuator.h -- 动作执行器基类
  *
- *  Created on: 2017��2��7��
- *      Author: Jacky Wang
+ * 被收发球类，收放齿轮类，攀爬类继承
  */
 
 #ifndef OPERATORACTUATOR_H_
@@ -19,19 +18,33 @@ private:
 	frc::Spark booster, actuator;
 	frc::DigitalInput limitSwitch;
 
-	enum Position {UpperPosition, LowerPosition};
+	enum Position {UpperPosition = 0, LowerPosition = 1};
+	const double actuatorSpeed = 0.1l;
 
 	Position currentPosition;
 	double currentSpeed;
 
-	void setSpeed(double speed);
-	double getSpeed();
-	void setPosition(Position pos);
-	Position getPosition();
+	void setBoosterSpeed(double speed);
+	void setActuatorPosition(Position pos);
+
+	bool isReached()
+	{
+		return limitSwitch.Get();
+	}
+
+	double getSpeed()
+	{
+		return currentSpeed;
+	}
+
+	Position getPosition()
+	{
+		return currentPosition;
+	}
+
 public:
-	OperatorActuator(RobotMap::upperMotorChannel boosterChannel, RobotMap::upperMotorChannel actuatorChannel);
+	OperatorActuator(RobotMap::upperMotorChannel boosterChannel,
+					 RobotMap::upperMotorChannel actuatorChannel);
 };
-
-
 
 #endif /* OPERATORACTUATOR_H_ */

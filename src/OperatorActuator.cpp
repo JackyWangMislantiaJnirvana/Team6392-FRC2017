@@ -9,24 +9,22 @@ OperatorActuator::OperatorActuator(RobotMap::upperMotorChannel boosterChannel,
 									RobotMap::upperMotorChannel actuatorChannel):
 		booster(boosterChannel), actuator(actuatorChannel), limitSwitch(0),
 		currentPosition(OperatorActuator::UpperPosition), currentSpeed(0.0L)
-{}
-
-void OperatorActuator::setSpeed(double speed)
 {
-	// TODO finish setSpeed
+	// empty block
 }
 
-double OperatorActuator::getSpeed()
+void OperatorActuator::setBoosterSpeed(double speed)
 {
-	return currentSpeed;
+	booster.Set(speed);
 }
 
-void OperatorActuator::setPosition(Position pos)
+void OperatorActuator::setActuatorPosition(Position pos)
 {
-	// TODO finish setPos
-}
+	while (isReached() != true)
+	{
+		actuator.Set(actuatorSpeed);
+		frc::Wait(RobotMap::delayTime);
+	}
 
-OperatorActuator::Position OperatorActuator::getPosition()
-{
-	return currentPosition;
+	actuator.Set(0.0l);
 }
