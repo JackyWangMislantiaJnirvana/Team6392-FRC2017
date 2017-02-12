@@ -1,11 +1,11 @@
 #include <Driver.h>
 
 //Driver::Driver(RobotMap::baseMotorChannel leftMotorC, RobotMap::baseMotorChannel rightMotorC):
-Driver::Driver(RobotMap::baseMotorChannel leftMotorC,
-			   RobotMap::baseMotorChannel rightMotorC) :
+Driver::Driver(RobotMap::baseMotorChannel leftMotorChannel,
+			   RobotMap::baseMotorChannel rightMotorChannel) :
 		// No longer used
 //		voidMotor(RobotMap::voidMotorChannel),
-		leftBaseMotor(leftMotorC), rightBaseMotor(rightMotorC),
+		leftBaseMotor(leftMotorChannel), rightBaseMotor(rightMotorChannel),
 		baseEncoder(RobotMap::AChannel, RobotMap::BChannel),
 		turnController(NULL),
 		turnPIDControllerOutput(0.0l)

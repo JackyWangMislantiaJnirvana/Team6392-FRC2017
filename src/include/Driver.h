@@ -68,7 +68,7 @@ public:
 	enum direction {turnAntiClockwise = 0, turnClockwise = 1, forward = 2, back = 3};
 
 	//Driver(RobotMap::baseMotorChannel leftMotor, RobotMap::baseMotorChannel rightMotor);
-	Driver(RobotMap::baseMotorChannel leftMotor, RobotMap::baseMotorChannel rightMotor);
+	Driver(RobotMap::baseMotorChannel leftMotorChannle, RobotMap::baseMotorChannel rightMotorChannel);
 	~Driver();
 	void OperatorDrive(frc::Joystick *rotateJoystick, frc::Joystick *moveJoystick);
 	void autoMove(direction direct, double distance);

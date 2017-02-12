@@ -24,6 +24,4 @@ private:
 	}
 };
 
-
-
 #endif /* BALLHANDLER_H_ */
