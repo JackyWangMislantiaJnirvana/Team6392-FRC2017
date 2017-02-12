@@ -14,22 +14,37 @@
 
 class OperatorActuator
 {
+public:
+	enum Position {UpperPosition = 0, LowerPosition = 1};
+
+	OperatorActuator(RobotMap::upperMotorChannel boosterChannel,
+					 RobotMap::upperMotorChannel actuatorChannel,
+					 RobotMap::limitSwitchChannel upperLimitSwitchChannel,
+					 RobotMap::limitSwitchChannel lowerLimitSwitchChannel);
+
+	void setBoosterSpeed(double speed);
+	void setActuatorPosition(Position pos);
+
 private:
 	frc::Spark booster, actuator;
-	frc::DigitalInput limitSwitch;
+	frc::DigitalInput upperLimitSwitch, lowerLimitSwitch;
 
-	enum Position {UpperPosition = 0, LowerPosition = 1};
 	const double actuatorSpeed = 0.1l;
 
 	Position currentPosition;
 	double currentSpeed;
 
-	void setBoosterSpeed(double speed);
-	void setActuatorPosition(Position pos);
-
-	bool isReached()
+	bool isReached(Position pos)
 	{
-		return limitSwitch.Get();
+		switch (pos)
+		{
+		case UpperPosition:
+			return upperLimitSwitch.Get();
+		case LowerPosition:
+			return lowerLimitSwitch.Get();
+		default:
+			return false;
+		}
 	}
 
 	double getSpeed()
@@ -42,9 +57,6 @@ private:
 		return currentPosition;
 	}
 
-public:
-	OperatorActuator(RobotMap::upperMotorChannel boosterChannel,
-					 RobotMap::upperMotorChannel actuatorChannel);
 };
 
 #endif /* OPERATORACTUATOR_H_ */

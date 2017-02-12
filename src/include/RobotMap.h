@@ -43,10 +43,12 @@ enum encoderChannels
 {
 	AChannel = 1, BChannel = 0
 };
-enum limitSwitchChannels
+
+enum limitSwitchChannel
 {
-	ballLimitChannel = 0, gearLimitChannel = 1
+	ballUpperLimitSwitchChannel = 0, ballLowerLimitSwitchChannel = 1, gearUpperLimitSwitchChannel = 2, gearLowerLimitSwitchChannel = 3
 };
+
 enum limitSwitchStatus
 {
 	triggered = 1, free = 0
