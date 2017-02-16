@@ -10,6 +10,7 @@
 #include <PIDController.h>
 #include <DigitalInput.h>
 #include <Spark.h>
+#include <VictorSP.h>
 #include <RobotMap.h>
 
 class OperatorActuator
@@ -26,7 +27,7 @@ public:
 	void setActuatorPosition(Position pos);
 
 private:
-	frc::Spark booster, actuator;
+	frc::VictorSP booster, actuator;
 	frc::DigitalInput upperLimitSwitch, lowerLimitSwitch;
 
 	const double actuatorSpeed = 0.1l;

@@ -100,11 +100,11 @@ void Robot::TeleopPeriodic()
 
 void Robot::TestInit()
 {
-	driver.initTestMode(lw);
 }
 // Periodically called in Test mode
 void Robot::TestPeriodic()
 {
+	driver.initTestMode(lw);
 	lw->Run();
 }
 

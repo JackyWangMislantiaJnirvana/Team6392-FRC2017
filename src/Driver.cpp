@@ -60,7 +60,7 @@ void Driver::OperatorDrive(frc::Joystick *rotateJoystick,
 	rawMoveValue = -moveJoystick->GetRawAxis(RobotMap::Y); // TESTME 摇杆是否正常？
 	rawRotateValue = -rotateJoystick->GetRawAxis(RobotMap::X); // TESTME 摇杆是否正常？
 
-	std::cout << "[Debug MSG] " << "MoveValue: " << rawMoveValue << "RotateValue: " << rawRotateValue << std::endl;
+//	std::cout << "[Debug MSG] " << "MoveValue: " << rawMoveValue << "RotateValue: " << rawRotateValue << std::endl;
 
 	leftBaseMotorPower = rawMoveValue + Driver::kDriveGain * rawRotateValue;
 	rightBaseMotorPower = rawMoveValue - Driver::kDriveGain * rawRotateValue;

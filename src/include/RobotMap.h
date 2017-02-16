@@ -46,7 +46,8 @@ enum encoderChannels
 
 enum limitSwitchChannel
 {
-	ballUpperLimitSwitchChannel = 0, ballLowerLimitSwitchChannel = 1, gearUpperLimitSwitchChannel = 2, gearLowerLimitSwitchChannel = 3
+	ballUpperLimitSwitchChannel = 2, ballLowerLimitSwitchChannel = 3,
+	gearUpperLimitSwitchChannel = 4, gearLowerLimitSwitchChannel = 5
 };
 
 enum limitSwitchStatus

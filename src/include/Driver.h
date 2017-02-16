@@ -75,7 +75,7 @@ public:
 	void autoTurn(direction direct, double angle);
 
 	// Inherited from PIDOutput
-	void PIDWrite(double output) final;
+	void PIDWrite(double output) override;
 
 	void initTestMode(frc::LiveWindow *livewindow);
 };
