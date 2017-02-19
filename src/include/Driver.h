@@ -16,7 +16,7 @@
 
 #include "RobotMap.h"
 
-/* 提示：
+/* 备忘：
  * 		为何Driver类要继承PIDOutput类？
  * -----------------------------------------------------------------------------
  * 	为了自定义如何处理PID运算结果
@@ -42,9 +42,13 @@ private:
 	const double DistancePerPulse = (1.0 / 360.0) * 2.0 * Pi * 1.5;
 	const double MinRate = 1.0;
 
+	//PID stuff
 	double kTurnPGain = 0;
 	double kTurnIGain = 0;
 	double kTurnDGain = 0;
+	double kMovePGain = 0;
+	double kMoveIGain = 0;
+	double kMoveDGain = 0;
 	const double kPIDInputMax = 180.0l;
 	const double kPIDInputMin = -180.0l;
 	const double kPIDOutputMax = 1.0l;
@@ -61,8 +65,10 @@ private:
 	frc::Encoder baseEncoder;
 	AHRS *navigator;
 	frc::PIDController *turnController;
+	frc::PIDController *moveController;
 
 	double turnPIDControllerOutput;
+	double movePIDControllerOutput;
 
 public:
 	enum direction {turnAntiClockwise = 0, turnClockwise = 1, forward = 2, back = 3};
@@ -78,6 +84,7 @@ public:
 	void PIDWrite(double output) override;
 
 	void initTestMode(frc::LiveWindow *livewindow);
+	void updateSmartStashboard();
 };
 
 #endif // DRIVER_H_

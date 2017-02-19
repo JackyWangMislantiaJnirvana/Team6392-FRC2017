@@ -53,6 +53,7 @@ void Robot::RobotInit()
 	//TODO Figure out how to manage auto system
 void Robot::AutonomousInit()
 {
+	driver.autoTurn(Driver::turnClockwise, 180);
 	autoSelected = chooser.GetSelected();
 	// std::string autoSelected = SmartDashboard::GetString("Auto Selector", autoNameDefault);
 	std::cout << "Auto selected: " << autoSelected << std::endl;

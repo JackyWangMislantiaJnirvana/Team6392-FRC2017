@@ -18,8 +18,8 @@ enum joystickAnxisChannel
 };
 enum joystickChannel
 {
-	rotateJoystickChannel = 0,
-	moveJoystickChannel = 1,
+	rotateJoystickChannel = 1,
+	moveJoystickChannel = 0,
 	upperStructureJoystickChannel = 2
 };
 
@@ -29,10 +29,10 @@ enum baseMotorChannel
 };
 enum upperMotorChannel
 {
-	ballBoosterChannel = 2,
+	ballBoosterChannel = 5,
 	ballActuatorChannel = 3,
 	gearActuatorChannel = 4,
-	climbBoosterChannel = 5,
+	climbBoosterChannel = 2,
 
 	// No longer used
 	// Channel of a motor which dosen't exist

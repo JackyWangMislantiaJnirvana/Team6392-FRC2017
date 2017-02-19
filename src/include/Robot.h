@@ -42,7 +42,6 @@ private:
 
 	//frc::RobotDrive robotDrive;
 	Driver driver;
-
 public:
 	Robot();
 	void RobotInit();

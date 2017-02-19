@@ -37,6 +37,7 @@ private:
 
 	bool isReached(Position pos)
 	{
+		//TESTME Check Me: 没有break有没有事？
 		switch (pos)
 		{
 		case UpperPosition:

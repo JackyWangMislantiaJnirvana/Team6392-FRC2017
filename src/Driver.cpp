@@ -8,7 +8,9 @@ Driver::Driver(RobotMap::baseMotorChannel leftMotorChannel,
 		leftBaseMotor(leftMotorChannel), rightBaseMotor(rightMotorChannel),
 		baseEncoder(RobotMap::AChannel, RobotMap::BChannel),
 		turnController(NULL),
-		turnPIDControllerOutput(0.0l)
+		moveController(NULL),
+		turnPIDControllerOutput(0.0l),
+		movePIDControllerOutput(0.0l)
 {
 	// initialize IMU
 	// if anything bad happened, output the reason into driver station console
@@ -57,8 +59,8 @@ void Driver::OperatorDrive(frc::Joystick *rotateJoystick,
 {
 	double rawMoveValue, rawRotateValue;
 	double leftBaseMotorPower, rightBaseMotorPower;
-	rawMoveValue = -moveJoystick->GetRawAxis(RobotMap::Y); // TESTME 摇杆是否正常？
-	rawRotateValue = -rotateJoystick->GetRawAxis(RobotMap::X); // TESTME 摇杆是否正常？
+	rawMoveValue = -moveJoystick->GetRawAxis(RobotMap::X); // TESTME 摇杆是否正常？
+	rawRotateValue = rotateJoystick->GetRawAxis(RobotMap::Y); // TESTME 摇杆是否正常？
 
 //	std::cout << "[Debug MSG] " << "MoveValue: " << rawMoveValue << "RotateValue: " << rawRotateValue << std::endl;
 
@@ -72,17 +74,43 @@ void Driver::OperatorDrive(frc::Joystick *rotateJoystick,
 						rightBaseMotorPower : -rightBaseMotorPower);
 }
 
-void Driver::autoMove(Driver::direction direct, double distance)
+// Move straightly to a specified distance
+void Driver::autoMove(Driver::direction moveDirect, double distance)
 {
-	//TODO finish this (using Encoders)
+	double leftBaseMotorPower = 0.0l;
+	double rightBaseMotorPower = 0.0l;
+	moveController = new frc::PIDController(kMovePGain, kMoveIGain, kMoveDGain, navigator, this);
+
+	// Reset IMU
+	navigator->Reset();
+
+	//TESTME Check Me: Min Max反没？
+	moveController->SetInputRange(kPIDInputMin, kPIDInputMax);
+	moveController->SetOutputRange(kPIDOutputMin, kPIDInputMax);
+	moveController->SetAbsoluteTolerance(kToleranceDegrees);
+
+	switch (moveDirect)
+	{
+	//TODO 如何让机器前进给定距离？量轮子周长？？？？？？？
+	//TESTME 确认不会跑反
+		case forward:
+			break;
+		case back:
+
+			break;
+		default:
+			break;
+	}
 }
+
+// Rotate to a specified angle
 void Driver::autoTurn(Driver::direction turnDirect, double angle)
 {
 	double leftBaseMotorPower = 0.0l;
 	double rightBaseMotorPower = 0.0l;
 	turnController = new frc::PIDController(kTurnPGain, kTurnIGain, kTurnDGain, navigator, this);
 
-	// Reset the IMU
+	// Reset IMU
 	navigator->Reset();
 
 	turnController->SetInputRange(kPIDInputMin, kPIDInputMax);
@@ -119,12 +147,10 @@ void Driver::PIDWrite(double output)
 
 void Driver::initTestMode(frc::LiveWindow *livewindow)
 {
-	//TESTME live window的行为如何？
-	livewindow->AddActuator("Base Motors", "left Motor", leftBaseMotor);
-	livewindow->AddActuator("Base Motors", "right Motor", rightBaseMotor);
-	livewindow->AddActuator("Auto Rotate", "PID Controller", turnController);
-
-	livewindow->AddSensor("Navigator", "NavX-MXP", navigator);
-
 	livewindow->Run();
+}
+
+void Driver::updateSmartStashboard()
+{
+	frc::SmartDashboard::PutNumber("Gyro", navigator->GetYaw());
 }
