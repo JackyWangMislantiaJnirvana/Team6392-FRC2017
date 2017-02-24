@@ -18,9 +18,9 @@ enum joystickAnxisChannel
 };
 enum joystickChannel
 {
-	rotateJoystickChannel = 1,
-	moveJoystickChannel = 0,
-	upperStructureJoystickChannel = 2
+	kRotateJoystickChannel = 1,
+	kMoveJoystickChannel = 0,
+	kUpperStructureJoystickChannel = 2
 };
 
 enum baseMotorChannel
@@ -34,8 +34,7 @@ enum upperMotorChannel
 	gearActuatorChannel = 4,
 	climbBoosterChannel = 2,
 
-	// No longer used
-	// Channel of a motor which dosen't exist
+	// 保证此PWM端口什么都不接
 	voidMotorChannel = 9
 };
 
@@ -46,8 +45,8 @@ enum encoderChannels
 
 enum limitSwitchChannel
 {
-	ballUpperLimitSwitchChannel = 2, ballLowerLimitSwitchChannel = 3,
-	gearUpperLimitSwitchChannel = 4, gearLowerLimitSwitchChannel = 5
+	ballLimitSwitchChannel = 3,
+	gearLimitSwitchChannel = 2
 };
 
 enum limitSwitchStatus

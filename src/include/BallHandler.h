@@ -8,9 +8,13 @@
 
 #include "OperatorActuator.h"
 
-class BallHandler : OperatorActuator
+//EXP
+class BallHandler : public OperatorActuator
 {
 public:
+	BallHandler(RobotMap::limitSwitchChannel limitSwitchChannel,
+				RobotMap::upperMotorChannel boosterChannel,
+				RobotMap::upperMotorChannel actuatorChannel);
 	void intake();
 	void output();
 

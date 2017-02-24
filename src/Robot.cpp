@@ -15,13 +15,16 @@
  *
  */
 Robot::Robot():
-	moveStick(RobotMap::moveJoystickChannel),
-	rotateStick(RobotMap::rotateJoystickChannel),
+	moveStick(RobotMap::kMoveJoystickChannel),
+	rotateStick(RobotMap::kRotateJoystickChannel),
 	//EXP
 //	robotDrive(RobotMap::leftMotorChannel, RobotMap::rightMotorChannel),
-	driver(RobotMap::leftMotorChannel, RobotMap::rightMotorChannel)
-{
-}
+	driver(RobotMap::leftMotorChannel, RobotMap::rightMotorChannel),
+
+	// Upper Structure
+	//TODO 改变成员:将upper和lower switch改成一个
+	ball(RobotMap::ballLimitSwitchChannel, RobotMap::ballActuatorChannel, RobotMap::ballBoosterChannel)
+{}
 
 
 /* RobotInit() - Initializer after the constructor
@@ -50,7 +53,6 @@ void Robot::RobotInit()
 
 
 // Initialization before auto stage
-	//TODO Figure out how to manage auto system
 void Robot::AutonomousInit()
 {
 	driver.autoTurn(Driver::turnClockwise, 180);
@@ -91,11 +93,28 @@ void Robot::TeleopInit()
 // Periodically called in TELEOP stage
 void Robot::TeleopPeriodic()
 {
+	// Ball
+
+	// Gear
+
+	// Climb
+
 	while (IsOperatorControl())
 	{
 		//EXP Driving control , powered by wpi RobotDrive::ArcadeDrive algorithms
 		//robotDrive.ArcadeDrive(moveStick.GetRawAxis(Joystick::kDefaultYAxis), -rotateStick.GetRawAxis(Joystick::kDefaultXAxis));
-		driver.OperatorDrive(&rotateStick, &moveStick);
+//		driver.OperatorDrive(&rotateStick, &moveStick);
+		if (moveStick.GetRawButton(3))
+		{
+			std::cout << "get3!" << std::endl;
+			ball.setActuatorPosition(OperatorActuator::LowerPosition);
+		}
+		if (moveStick.GetRawButton(4))
+		{
+			std::cout << "get4" << std::endl;
+			ball.setActuatorPosition(OperatorActuator::UpperPosition);
+		}
+		frc::Wait(0.5);
 	}
 }
 

@@ -5,15 +5,13 @@
 
 #include "OperatorActuator.h"
 
-OperatorActuator::OperatorActuator(RobotMap::upperMotorChannel boosterChannel,
+OperatorActuator::OperatorActuator(RobotMap::limitSwitchChannel limitSwitchChannel,
 								   RobotMap::upperMotorChannel actuatorChannel,
-								   RobotMap::limitSwitchChannel upperLimitSwitchChannel,
-								   RobotMap::limitSwitchChannel lowerLimitSwitchChannel):
+								   RobotMap::upperMotorChannel boosterChannel):
 		booster(boosterChannel), actuator(actuatorChannel),
-		upperLimitSwitch(upperLimitSwitchChannel),
-		lowerLimitSwitch(lowerLimitSwitchChannel),
-		currentPosition(OperatorActuator::UpperPosition),
-		currentSpeed(0.0L)
+		limitSwitch(limitSwitchChannel),
+		currentSpeed(0.0L),
+		currentPosition(OperatorActuator::UpperPosition)
 {
 	// empty block
 }
@@ -25,15 +23,19 @@ void OperatorActuator::setBoosterSpeed(double speed)
 
 void OperatorActuator::setActuatorPosition(Position pos)
 {
+	int counter = 0;
 	if (currentPosition == pos)
 		return;
 
-	while (isReached(pos) != true)
+	while (isReached() != true)
 	{
 		actuator.Set(actuatorSpeed);
 		frc::Wait(RobotMap::delayTime);
+		actuator.Set(0.0l);
+		counter++;
+		if (counter >= 100)
+			break;
 	}
-	actuator.Set(0.0l);
 
 	currentPosition = pos;
 }

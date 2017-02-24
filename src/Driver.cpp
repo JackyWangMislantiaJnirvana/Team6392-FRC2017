@@ -54,13 +54,14 @@ Driver::~Driver()
 }
 
 // KISS driver algorithms copied from Tang's code for FRC2016
+// 模块锁定: 不要再动这个模块了。目前它行为良好，即使逻辑混乱...
 void Driver::OperatorDrive(frc::Joystick *rotateJoystick,
 						   frc::Joystick *moveJoystick)
 {
 	double rawMoveValue, rawRotateValue;
 	double leftBaseMotorPower, rightBaseMotorPower;
-	rawMoveValue = -moveJoystick->GetRawAxis(RobotMap::X); // TESTME 摇杆是否正常？
-	rawRotateValue = rotateJoystick->GetRawAxis(RobotMap::Y); // TESTME 摇杆是否正常？
+	rawMoveValue = -moveJoystick->GetRawAxis(RobotMap::X);
+	rawRotateValue = rotateJoystick->GetRawAxis(RobotMap::Y);
 
 //	std::cout << "[Debug MSG] " << "MoveValue: " << rawMoveValue << "RotateValue: " << rawRotateValue << std::endl;
 
@@ -74,8 +75,9 @@ void Driver::OperatorDrive(frc::Joystick *rotateJoystick,
 						rightBaseMotorPower : -rightBaseMotorPower);
 }
 
+// W.I.P.
 // Move straightly to a specified distance
-void Driver::autoMove(Driver::direction moveDirect, double distance)
+/*void Driver::autoMove(Driver::direction moveDirect, double distance)
 {
 	double leftBaseMotorPower = 0.0l;
 	double rightBaseMotorPower = 0.0l;
@@ -102,7 +104,7 @@ void Driver::autoMove(Driver::direction moveDirect, double distance)
 			break;
 	}
 }
-
+*/
 // Rotate to a specified angle
 void Driver::autoTurn(Driver::direction turnDirect, double angle)
 {

@@ -18,33 +18,29 @@ class OperatorActuator
 public:
 	enum Position {UpperPosition = 0, LowerPosition = 1};
 
-	OperatorActuator(RobotMap::upperMotorChannel boosterChannel,
-					 RobotMap::upperMotorChannel actuatorChannel,
-					 RobotMap::limitSwitchChannel upperLimitSwitchChannel,
-					 RobotMap::limitSwitchChannel lowerLimitSwitchChannel);
+	OperatorActuator(RobotMap::limitSwitchChannel limitSwitchChannel,
+			 	 	 RobotMap::upperMotorChannel boosterChannel,
+					 RobotMap::upperMotorChannel actuatorChannel);
 
 	void setBoosterSpeed(double speed);
 	void setActuatorPosition(Position pos);
 
 private:
 	frc::VictorSP booster, actuator;
-	frc::DigitalInput upperLimitSwitch, lowerLimitSwitch;
+	frc::DigitalInput limitSwitch;
 
 	const double actuatorSpeed = 0.1l;
 
-	Position currentPosition;
 	double currentSpeed;
+	Position currentPosition;
 
-	bool isReached(Position pos)
+	bool isReached()
 	{
-		//TESTME Check Me: 没有break有没有事？
-		switch (pos)
+		switch (limitSwitch.Get())
 		{
-		case UpperPosition:
-			return upperLimitSwitch.Get();
-		case LowerPosition:
-			return lowerLimitSwitch.Get();
-		default:
+		case RobotMap::triggered:
+			return true;
+		case RobotMap::free:
 			return false;
 		}
 	}

@@ -4,6 +4,10 @@
  * header file for Robot.cpp
  */
 
+// Include Protection
+#ifndef ROBOT_H_
+#define ROBOT_H_
+
 // Headers from standard library
 #include <iostream>
 #include <memory>
@@ -21,9 +25,11 @@
 #include "Driver.h"
 #include "RobotMap.h"
 
-// Include Protection
-#ifndef ROBOT_H_
-#define ROBOT_H_
+#include "BallHandler.h"
+#include "GearHandler.h"
+#include "Climber.h"
+
+
 
 //enum joystickAnxisChannel {X = 0, Y = 1, Z = 2, Slider = 3};
 //enum joystickChannel {rotateJoystickChannel = 0, moveJoystickChannel = 1};
@@ -42,6 +48,10 @@ private:
 
 	//frc::RobotDrive robotDrive;
 	Driver driver;
+
+	BallHandler ball;
+//	GearHandler gear;
+//	Climber climber;
 public:
 	Robot();
 	void RobotInit();
