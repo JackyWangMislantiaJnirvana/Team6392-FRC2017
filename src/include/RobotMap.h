@@ -51,7 +51,7 @@ enum limitSwitchChannel
 
 enum limitSwitchStatus
 {
-	triggered = 1, free = 0
+	kTriggered = 1, kFree = 0
 };
 
 // Button Definitions for upper structure

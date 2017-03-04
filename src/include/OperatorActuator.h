@@ -38,10 +38,12 @@ private:
 	{
 		switch (limitSwitch.Get())
 		{
-		case RobotMap::triggered:
+		case RobotMap::kTriggered:
 			return true;
-		case RobotMap::free:
+			break;
+		case RobotMap::kFree:
 			return false;
+			break;
 		}
 	}
 

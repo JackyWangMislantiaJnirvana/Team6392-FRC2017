@@ -12,16 +12,18 @@ Driver::Driver(RobotMap::baseMotorChannel leftMotorChannel,
 		turnPIDControllerOutput(0.0l),
 		movePIDControllerOutput(0.0l)
 {
+	turnController = new frc::PIDController(kTurnPGain, kTurnIGain, kTurnDGain, navigator, this);
+
 	// initialize IMU
 	// if anything bad happened, output the reason into driver station console
 	try
 	{
 		navigator = new AHRS(frc::SPI::Port::kMXP);
 	}
-	catch (std::exception ex)
+	catch (std::exception& e)
 	{
 		std::string err_string = "Error instantiating NavX-MXP";
-		err_string += ex.what();
+		err_string += e.what();
 		frc::DriverStation::ReportError(err_string.c_str());
 	}
 
@@ -51,6 +53,7 @@ Driver::Driver(RobotMap::baseMotorChannel leftMotorChannel,
 Driver::~Driver()
 {
 	delete navigator;
+	delete turnController;
 }
 
 // KISS driver algorithms copied from Tang's code for FRC2016
@@ -62,6 +65,7 @@ void Driver::OperatorDrive(frc::Joystick *rotateJoystick,
 	double leftBaseMotorPower, rightBaseMotorPower;
 	rawMoveValue = -moveJoystick->GetRawAxis(RobotMap::X);
 	rawRotateValue = rotateJoystick->GetRawAxis(RobotMap::Y);
+	moveJoystick->GetAxis(frc::Joystick::AxisType::kXAxis);
 
 //	std::cout << "[Debug MSG] " << "MoveValue: " << rawMoveValue << "RotateValue: " << rawRotateValue << std::endl;
 
@@ -110,7 +114,6 @@ void Driver::autoTurn(Driver::direction turnDirect, double angle)
 {
 	double leftBaseMotorPower = 0.0l;
 	double rightBaseMotorPower = 0.0l;
-	turnController = new frc::PIDController(kTurnPGain, kTurnIGain, kTurnDGain, navigator, this);
 
 	// Reset IMU
 	navigator->Reset();
