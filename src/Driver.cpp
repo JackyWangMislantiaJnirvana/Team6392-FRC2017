@@ -27,14 +27,6 @@ Driver::Driver(RobotMap::baseMotorChannel leftMotorChannel,
 		frc::DriverStation::ReportError(err_string.c_str());
 	}
 
-
-	/* Defines the number of samples to average when determining the rate.
-	 * On a quadrature encoder, values range from 1-255; larger values
-	 *   result in smoother but potentially less accurate rates than lower
-	 *   values.
-	 */
-	baseEncoder.SetSamplesToAverage(SamplesToAverage);
-
 	/* Defines how far the mechanism attached to the encoder moves per pulse.
 	 * In this case, we assume that a 360 count encoder is directly attached
 	 * to a 3 inch diameter (1.5inch radius) wheel, and that we want to
@@ -42,12 +34,6 @@ Driver::Driver(RobotMap::baseMotorChannel leftMotorChannel,
 	 */
 	baseEncoder.SetDistancePerPulse(DistancePerPulse);
 
-	/* Defines the lowest rate at which the encoder will not be considered
-	 *   stopped, for the purposes of the GetStopped() method.
-	 * Units are in distance / second, where distance refers to the units
-	 *   of distance that you are using, in this case inches.
-	 */
-	baseEncoder.SetMinRate(MinRate);
 }
 
 Driver::~Driver()
