@@ -131,6 +131,19 @@ void Driver::autoTurn(Driver::direction turnDirect, double angle)
 
 }
 
+void Driver::autoTimerStraitDrive(double time)
+{
+	driveTimer.Reset();
+	driveTimer.Start();
+	leftBaseMotor.Set(fixedLeftMotorPower);
+	rightBaseMotor.Set(fixedRightMotorPower);
+	if (driveTimer.Get() > driveTime)
+	{
+		leftBaseMotor.Set(0.0l);
+		rightBaseMotor.Set(0.0l);
+	}
+}
+
 void Driver::PIDWrite(double output)
 {
 	turnPIDControllerOutput = output;

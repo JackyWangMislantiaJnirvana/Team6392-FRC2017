@@ -13,6 +13,7 @@
 #include "AHRS.h"
 #include <Spark.h>
 #include "PIDController.h"
+#include <Timer.h>
 
 #include "RobotMap.h"
 
@@ -43,17 +44,23 @@ private:
 	const double MinRate = 1.0;
 
 	//PID stuff
-	double kTurnPGain = 0;
-	double kTurnIGain = 0;
-	double kTurnDGain = 0;
-	double kMovePGain = 0;
-	double kMoveIGain = 0;
-	double kMoveDGain = 0;
+	const double kTurnPGain = 0;
+	const double kTurnIGain = 0;
+	const double kTurnDGain = 0;
+	const double kMovePGain = 0;
+	const double kMoveIGain = 0;
+	const double kMoveDGain = 0;
 	const double kPIDInputMax = 180.0l;
 	const double kPIDInputMin = -180.0l;
 	const double kPIDOutputMax = 1.0l;
 	const double kPIDOutputMin = -1.0l;
 	const double kToleranceDegrees = 2.0l;
+
+
+	// TODO 调正两边的Power值让机器走直线
+	const double fixedLeftMotorPower = 1.0l;
+	const double fixedRightMotorPower = 1.0l;
+	const double driveTime = 1.0l;
 
 	// No longer used. See help message above the class for why.
 	// A motor which doesn't exist, used to cheat PIDController as the output of PID control.
@@ -67,6 +74,8 @@ private:
 	frc::PIDController *turnController;
 	frc::PIDController *moveController;
 
+	frc::Timer driveTimer;
+
 	double turnPIDControllerOutput;
 	double movePIDControllerOutput;
 
@@ -79,6 +88,7 @@ public:
 	void OperatorDrive(frc::Joystick *rotateJoystick, frc::Joystick *moveJoystick);
 	void autoMove(direction direct, double distance);
 	void autoTurn(direction direct, double angle);
+	void autoTimerStraitDrive(double time);
 
 	// Inherited from PIDOutput
 	void PIDWrite(double output) override;

@@ -36,8 +36,8 @@ Robot::Robot():
  */
 void Robot::RobotInit()
 {
-	chooser.AddDefault(autoNameDefault, autoNameDefault);
-	chooser.AddObject(autoNameCustom, autoNameCustom);
+	chooser.AddDefault(autoReachLine, autoReachLine);
+	chooser.AddObject(autoPutGear, autoPutGear);
 	frc::SmartDashboard::PutData("Auto Modes", &chooser);
 }
 
@@ -62,20 +62,20 @@ void Robot::AutonomousInit()
 	// std::string autoSelected = SmartDashboard::GetString("Auto Selector", autoNameDefault);
 	std::cout << "Auto selected: " << autoSelected << std::endl;
 
-	if (autoSelected == autoNameCustom)
+	if (autoSelected == autoPutGear)
 	{
-		// Custom Auto goes here
+
 	}
-	else
+	else // Drive straitly and reach the line for default
 	{
-		// Default Auto goes here
+
 	}
 }
 
 // Periodically called in auto stage
 void Robot::AutonomousPeriodic()
 {
-	if (autoSelected == autoNameCustom)
+	if (autoSelected == autoPutGear)
 	{
 		// Custom Auto goes here
 	}

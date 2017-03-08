@@ -36,8 +36,8 @@ class Robot: public frc::IterativeRobot
 private:
 	frc::LiveWindow* lw = LiveWindow::GetInstance();
 	frc::SendableChooser<std::string> chooser;
-	const std::string autoNameDefault = "Default";
-	const std::string autoNameCustom = "My Auto";
+	const std::string autoReachLine = "Reach the line";
+	const std::string autoPutGear = "Put gear";
 	std::string autoSelected;
 
 	frc::Joystick moveStick;
