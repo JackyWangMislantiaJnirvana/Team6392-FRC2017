@@ -11,14 +11,12 @@
 class Climber : OperatorActuator
 {
 private:
-	const float climbSpeed = 0.0l;
-	const float climbTime = 0.0l;
+	const float climbSpeed = 1.0l;
 public:
+	Climber();
+
 	void startClimb();
-	void waitUntilClimbIsComplete()
-	{
-		frc::Wait(climbTime);
-	}
+	void stopClimb();
 };
 
 #endif /* CLIMBER_H_ */

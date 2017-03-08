@@ -35,6 +35,7 @@ enum upperMotorChannel
 	climbBoosterChannel = 2,
 
 	// 保证此PWM端口什么都不接
+	// 疑问: 一个端口上多次初始化电机会怎样？
 	voidMotorChannel = 9
 };
 
@@ -46,7 +47,9 @@ enum encoderChannels
 enum limitSwitchChannel
 {
 	ballLimitSwitchChannel = 3,
-	gearLimitSwitchChannel = 2
+	gearLimitSwitchChannel = 2,
+
+	voidSwitchChannel = 9
 };
 
 enum limitSwitchStatus

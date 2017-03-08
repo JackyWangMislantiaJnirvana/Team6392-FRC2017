@@ -24,6 +24,7 @@ public:
 
 	void setBoosterSpeed(double speed);
 	void setActuatorPosition(Position pos);
+	void switchActuatorPosition();
 
 private:
 	frc::VictorSP booster, actuator;

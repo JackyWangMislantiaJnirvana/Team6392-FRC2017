@@ -17,13 +17,15 @@
 Robot::Robot():
 	moveStick(RobotMap::kMoveJoystickChannel),
 	rotateStick(RobotMap::kRotateJoystickChannel),
-	//EXP
-//	robotDrive(RobotMap::leftMotorChannel, RobotMap::rightMotorChannel),
+	upperStick(RobotMap::kUpperStructureJoystickChannel),
 	driver(RobotMap::leftMotorChannel, RobotMap::rightMotorChannel),
 
 	// Upper Structure
-	//TODO 改变成员:将upper和lower switch改成一个
-	ball(RobotMap::ballLimitSwitchChannel, RobotMap::ballActuatorChannel, RobotMap::ballBoosterChannel)
+//	ball(),
+//	gear(),
+//	climber()
+	ballButtomLastState(false),
+	gearButtomLastState(false)
 {}
 
 
@@ -93,17 +95,29 @@ void Robot::TeleopInit()
 // Periodically called in TELEOP stage
 void Robot::TeleopPeriodic()
 {
-	// Ball
-
-	// Gear
-
-	// Climb
-
 	while (IsOperatorControl())
 	{
-		//EXP Driving control , powered by wpi RobotDrive::ArcadeDrive algorithms
-		//robotDrive.ArcadeDrive(moveStick.GetRawAxis(Joystick::kDefaultYAxis), -rotateStick.GetRawAxis(Joystick::kDefaultXAxis));
-//		driver.OperatorDrive(&rotateStick, &moveStick);
+		// Climb
+		if (upperStick.GetRawButton(RobotMap::climbBoosterONButton))
+			climber.startClimb();
+		else
+			if (upperStick.GetRawButton(RobotMap::climbBoosterOFFButton))
+				climber.stopClimb();
+		// Ball
+		// TESTME 反没？
+		ball.setBallBoosterPower(upperStick.GetRawAxis(RobotMap::ballBoosterONOFFSlider) >= 0.5 ? 1.0l : 0.0l);
+		ballButtomLastState = upperStick.GetRawButton(RobotMap::ballActuatorTriggerButton);
+		if ((ballButtomLastState == false) && (upperStick.GetRawButton(RobotMap::ballActuatorTriggerButton) == true))
+			ball.changeBallActuatorPosition();
+		ballButtomLastState = !ballButtomLastState;
+
+		// Gear
+		if ((ballButtomLastState == false) && (upperStick.GetRawButton(RobotMap::gearActuatorTriggerButton) == true))
+			gear.changeGearActuatorPosition();
+		gearButtomLastState = !gearButtomLastState;
+
+/*
+		driver.OperatorDrive(&rotateStick, &moveStick);
 		if (moveStick.GetRawButton(3))
 		{
 			std::cout << "get3!" << std::endl;
@@ -115,6 +129,7 @@ void Robot::TeleopPeriodic()
 			ball.setActuatorPosition(OperatorActuator::UpperPosition);
 		}
 		frc::Wait(0.5);
+*/
 	}
 }
 

@@ -31,9 +31,6 @@
 
 
 
-//enum joystickAnxisChannel {X = 0, Y = 1, Z = 2, Slider = 3};
-//enum joystickChannel {rotateJoystickChannel = 0, moveJoystickChannel = 1};
-
 class Robot: public frc::IterativeRobot
 {
 private:
@@ -45,13 +42,17 @@ private:
 
 	frc::Joystick moveStick;
 	frc::Joystick rotateStick;
+	frc::Joystick upperStick;
 
 	//frc::RobotDrive robotDrive;
 	Driver driver;
 
 	BallHandler ball;
-//	GearHandler gear;
-//	Climber climber;
+	GearHandler gear;
+	Climber climber;
+
+	bool ballButtomLastState;
+	bool gearButtomLastState;
 public:
 	Robot();
 	void RobotInit();

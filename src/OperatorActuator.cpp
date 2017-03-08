@@ -39,3 +39,9 @@ void OperatorActuator::setActuatorPosition(Position pos)
 
 	currentPosition = pos;
 }
+
+void OperatorActuator::switchActuatorPosition()
+{
+	// 将位置设为与当前位置相反另一个位置，同时更新当前位置
+	setActuatorPosition(currentPosition = (Position)!currentPosition);
+}

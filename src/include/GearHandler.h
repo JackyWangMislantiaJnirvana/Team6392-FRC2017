@@ -11,11 +11,15 @@
 class GearHandler : OperatorActuator
 {
 public:
-	void releaseGear();
-	void holdGear();
-	void reset();
+	GearHandler();
+
+	void changeGearActuatorPosition();
+
 private:
 	const double gearActuatorSpeed = 0.1l;
+
+	void toReleaseGearPosition();
+	void toReciveGearPosition();
 };
 
 #endif /* GEARHANDLER_H_ */
